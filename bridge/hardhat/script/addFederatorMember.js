@@ -1,13 +1,17 @@
-// How to run the script: npx hardhat run ./hardhat/script/addFederatorMemeber.js --network rsktestnetbsc
+// How to run the script: npx hardhat run ./hardhat/script/addFederatorMember.js --network mumbai
 const hre = require("hardhat");
 
 async function main() {
+
+  console.log('starting')
+
   const {getNamedAccounts, deployments} = hre;
   const {deployer} = await getNamedAccounts();
-  const transactionEtherValue = 0;
-  const memberFederatorAddress = "0x0e6fa08809bc166ab5ce237fdccb1802fdf13b27";
 
-  const Federation = await deployments.get('FederationV2');
+  const transactionEtherValue = 0;
+  const memberFederatorAddress = "0x1aA9D0b1063d8b0D2a51F805b86462dBB95a2902";
+
+  const Federation = await deployments.get('Federation');
   const FederationProxy = await deployments.get('FederationProxy');
   const MultiSigWallet = await deployments.get('MultiSigWallet');
 

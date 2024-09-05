@@ -1,0 +1,11 @@
+{
+    "name": "sepolia_arbitrum",
+    "bridge": "0xf2394e25954713a25b4e5a3d3b5a57b313b84a6b",
+    "federation": "0x4cd634d1399eeeb61294bdf9a2df7588f7d4af8f",
+    "multiSig": "0x7cfded4ccdac46d2d1003b4bc9058b2135feb79e",
+    "allowTokens": "0x458ae8c887440e89251d6be560d11802aad606fd",
+    "chainId": 421614,
+    "testToken": "0x9956d17a0615e2af9f3745c87a55db05fcc50329",
+    "host": "https://arbitrum-sepolia.infura.io/v3/",
+    "fromBlock": 57692585
+}

@@ -1,0 +1,11 @@
+{
+    "name": "mumbai",
+    "bridge": "0x554b63f926a8120242c10e69a61fff46abeda07d",
+    "federation": "0x933a5049dea3ba93aeb0a79f516e83d6ad206b8a",
+    "multiSig": "0xab2a1321d4a049d67bdb8ac05cc3e036606b9383",
+    "allowTokens": "0xbf52a73032039f274155e2467aa31de6ef1310f5",
+    "chainId": 80001,
+    "testToken": "0x995491ebafe3e286201bf22af1af9803b5c5d9b5",
+    "host": "https://polygon-mumbai.infura.io/v3/",
+    "fromBlock": 44851963
+}

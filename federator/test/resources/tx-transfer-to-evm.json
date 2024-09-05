@@ -1,0 +1,107 @@
+{
+    "type": "wallet:new-tx",
+    "walletId": "multi",
+    "data": {
+        "tx_id": "000019c59eb441d208beb9a07850e73fbc9c8d1230587b55624a1ca4f0858dec",
+        "version": 1,
+        "weight": 19.168653445302528,
+        "timestamp": 1705261126,
+        "is_voided": false,
+        "inputs": [
+            {
+                "value": 1760,
+                "token_data": 0,
+                "script": "dqkU4/SoHhiRsSvPxjRrFKp2FmbsxcKIrA==",
+                "decoded": {
+                    "type": "P2PKH",
+                    "address": "WjTMMX5Rs8oinnpRQfyMuxFYYaPWEPSRPm",
+                    "timelock": null
+                },
+                "token": "00",
+                "tx_id": "00000000f7ed73271932c5d453833a4df7cddecc2f5437b28001523e874977b3",
+                "index": 3
+            },
+            {
+                "value": 90,
+                "token_data": 1,
+                "script": "dqkU4/SoHhiRsSvPxjRrFKp2FmbsxcKIrA==",
+                "decoded": {
+                    "type": "P2PKH",
+                    "address": "WjTMMX5Rs8oinnpRQfyMuxFYYaPWEPSRPm",
+                    "timelock": null
+                },
+                "token": "000001f8107c19b57397acb4d44d66208015b6c0eb6cbc3c46651c6fc1e43cdd",
+                "tx_id": "00000000f7ed73271932c5d453833a4df7cddecc2f5437b28001523e874977b3",
+                "index": 2
+            }
+        ],
+        "outputs": [
+            {
+                "value": 1759,
+                "token_data": 0,
+                "script": "dqkU0krJZah8Ckx8zGRHoThyFe61viOIrA==",
+                "decoded": {
+                    "type": "P2PKH",
+                    "address": "WhqxNV18w9XUiQ7w44Z4JUgnm4YKdjr9N7",
+                    "timelock": null
+                },
+                "token": "00",
+                "spent_by": null
+            },
+            {
+                "value": 1,
+                "token_data": 0,
+                "script": "KjB4RTIzZDU5ZWYwYzFGNjNCNTMyMzRiMDBhMWUxRWFCRWY4MjIzOTdEMqw=",
+                "decoded": {},
+                "token": "00",
+                "spent_by": null
+            },
+            {
+                "value": 89,
+                "token_data": 1,
+                "script": "dqkU0krJZah8Ckx8zGRHoThyFe61viOIrA==",
+                "decoded": {
+                    "type": "P2PKH",
+                    "address": "WhqxNV18w9XUiQ7w44Z4JUgnm4YKdjr9N7",
+                    "timelock": null
+                },
+                "token": "000001f8107c19b57397acb4d44d66208015b6c0eb6cbc3c46651c6fc1e43cdd",
+                "spent_by": null
+            },
+            {
+                "value": 1,
+                "token_data": 1,
+                "script": "qRRvdU7OvXY8rfcJa32HeN2YH3C1+Yc=",
+                "decoded": {
+                    "type": "MultiSig",
+                    "address": "wVnmTeNDudCahDS7xCBNw88KyHF9MfqWaP",
+                    "timelock": null
+                },
+                "token": "000001f8107c19b57397acb4d44d66208015b6c0eb6cbc3c46651c6fc1e43cdd",
+                "spent_by": null
+            }
+        ],
+        "parents": [
+            "00000000f7ed73271932c5d453833a4df7cddecc2f5437b28001523e874977b3",
+            "000057e8776033b1cbeb8ac53ca3e67a3099f8f362cc5847e7688beb9f4f9dd7"
+        ]
+    },
+    "balance": {
+        "000001f8107c19b57397acb4d44d66208015b6c0eb6cbc3c46651c6fc1e43cdd": {
+            "tokens": {
+                "locked": 0,
+                "unlocked": 1
+            },
+            "authorities": {
+                "mint": {
+                    "locked": 0,
+                    "unlocked": 0
+                },
+                "melt": {
+                    "locked": 0,
+                    "unlocked": 0
+                }
+            }
+        }
+    }
+}

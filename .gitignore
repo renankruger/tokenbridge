@@ -8,5 +8,13 @@ federator.log
 .env
 .env.test
 .env.prod
+**.env
 
 federator/built
+
+federator/package-lock.json
+server/package-lock.json
+
+**.tfvars
+**.terraform*
+**.tfstate*

@@ -13,11 +13,13 @@ export class IAllowTokensV1 implements IAllowTokens {
   allowTokensContract: Contract;
   mapTokenInfoAndLimits: any;
   chainId: number;
+  federatorInstance: number;
 
-  constructor(allowTokensContract: Contract, chainId: number) {
+  constructor(allowTokensContract: Contract, chainId: number, federatorInstance = 1) {
     this.allowTokensContract = allowTokensContract;
     this.mapTokenInfoAndLimits = {};
     this.chainId = chainId;
+    this.federatorInstance = federatorInstance;
   }
 
   getVersion(): string {
@@ -31,10 +33,14 @@ export class IAllowTokensV1 implements IAllowTokens {
     promises.push(this.getLargeAmountConfirmations());
     const result = await Promise.all(promises);
     return {
-      smallAmountConfirmations: result[0],
-      mediumAmountConfirmations: result[1],
-      largeAmountConfirmations: result[2],
+      smallAmountConfirmations: this.multiplyByFederatorInstance(result[0]),
+      mediumAmountConfirmations: this.multiplyByFederatorInstance(result[1]),
+      largeAmountConfirmations: this.multiplyByFederatorInstance(result[2]),
     };
+  }
+
+  private multiplyByFederatorInstance(confirmation: number): number {
+    return confirmation * this.federatorInstance;
   }
 
   async getSmallAmountConfirmations(): Promise<BN> {

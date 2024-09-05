@@ -12,11 +12,13 @@ export class IAllowTokensV0 implements IAllowTokens {
   allowTokensContract: Contract;
   mapTokenInfoAndLimits: any;
   chainId: any;
+  federatorInstance: number;
 
-  constructor(allowTokensContract: Contract, chainId: number) {
+  constructor(allowTokensContract: Contract, chainId: number, federatorInstance = 1) {
     this.allowTokensContract = allowTokensContract;
     this.mapTokenInfoAndLimits = {};
     this.chainId = chainId;
+    this.federatorInstance = federatorInstance;
   }
 
   getVersion(): string {
@@ -37,6 +39,10 @@ export class IAllowTokensV0 implements IAllowTokens {
       // rsk mainnet 24hs
       confirmations = 120;
     }
+
+    confirmations *= this.federatorInstance;
+    console.log(`Confirmation set: ${this.federatorInstance} | ${confirmations}`);
+
     return {
       smallAmountConfirmations: confirmations,
       mediumAmountConfirmations: confirmations,

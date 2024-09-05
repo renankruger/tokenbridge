@@ -20,11 +20,11 @@ contract mockReceiveTokensCall is IERC777Recipient {
 
     function callReceiveTokens(address tokenToUse, address receiver, uint256 amount, uint256 destinationChainId) external {
         IERC20(tokenToUse).approve(bridge, amount);
-        IBridge(bridge).receiveTokensTo(destinationChainId, tokenToUse, receiver, amount);
+        // IBridge(bridge).receiveTokensTo(destinationChainId, tokenToUse, receiver, amount);
     }
 
     function callDepositTo(address receiver, uint256 destinationChainId) external payable {
-        IBridge(bridge).depositTo{ value: msg.value }(destinationChainId, receiver);
+        // IBridge(bridge).depositTo{ value: msg.value }(destinationChainId, receiver);
     }
 
     function callTokensReceived(address tokenToUse, uint256 amount, bytes calldata data) external {

@@ -1,4 +1,4 @@
-// How to run the script: npx hardhat run ./hardhat/script/getFederatorMembers.js --network rsktestnetbsc
+// How to run the script: npx hardhat run ./hardhat/script/getFederatorMembers.js --network sepolia
 const hre = require("hardhat");
 
 async function main() {

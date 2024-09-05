@@ -1,0 +1,70 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: hathor_rabbitmq_${HATHOR_MULTISIG_ORDER}
+    ports:
+      - "56${HATHOR_MULTISIG_ORDER}2:5672"
+      - "156${HATHOR_MULTISIG_ORDER}2:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - ./rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
+      - ./rabbitmq_definitions.json:/etc/rabbitmq/definitions.json:ro
+  
+  init-rabbitmq:
+    image: alpine:3.12
+    container_name: init_rabbitmq_container_${HATHOR_MULTISIG_ORDER}
+    depends_on:
+      - rabbitmq
+    entrypoint: |
+      /bin/sh -c "
+      apk add --no-cache curl;
+      until curl -s -u guest:guest http://rabbitmq:15672/api/healthchecks/node | grep -q 'ok'; do
+        echo 'Waiting for RabbitMQ...'
+        sleep 2
+      done
+      echo 'RabbitMQ is up and running.'
+      touch /tmp/initialized
+      while true; do sleep 30; done
+      "
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /tmp/initialized ] || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    volumes:
+      - ./init-rabbitmq.sh:/init-rabbitmq.sh
+
+  hathor-wallet:
+    image: toggera/hathor-wallet-rabbitmq:latest
+    container_name: hathor_wallet_container_${HATHOR_MULTISIG_ORDER}
+    depends_on:
+      init-rabbitmq:
+        condition: service_healthy
+    ports:
+      - "800${HATHOR_MULTISIG_ORDER}:8000"
+    environment:
+      - HEADLESS_SEED_DEFAULT=${HEADLESS_SEED_DEFAULT}
+      - HEADLESS_API_KEY=${HEADLESS_API_KEY}
+      - HEADLESS_NETWORK=${HEADLESS_NETWORK}
+      - HEADLESS_SERVER=${HEADLESS_SERVER}
+      - HEADLESS_MULTISIG_SEED_DEFAULT_MAX_SIGNATURES=${HEADLESS_MULTISIG_SEED_DEFAULT_MAX_SIGNATURES}
+      - HEADLESS_MULTISIG_SEED_DEFAULT_NUM_SIGNATURES=${HEADLESS_MULTISIG_SEED_DEFAULT_NUM_SIGNATURES}
+      - HEADLESS_MULTISIG_SEED_DEFAULT_PUBKEYS=${HEADLESS_MULTISIG_SEED_DEFAULT_PUBKEYS}
+      - HEADLESS_ENABLED_PLUGINS=${HEADLESS_ENABLED_PLUGINS}
+      - HEADLESS_PLUGIN_DEBUG_LONG=${HEADLESS_PLUGIN_DEBUG_LONG}
+      - HEADLESS_PLUGIN_RABBITMQ_QUEUE=${HEADLESS_PLUGIN_RABBITMQ_QUEUE}
+      - HEADLESS_PLUGIN_RABBITMQ_URL=${HEADLESS_PLUGIN_RABBITMQ_URL}
+
+  # hathor-federator:
+  #   image: toggera/hathor-tokenbridge:latest
+  #   container_name: hathor_tokenbridge
+  #   depends_on:
+  #     - hathor-wallet
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     HTR_CONFIG: '{"name":"${HATHOR_NAME}","chainId":${HATHOR_CHAIN_ID},"fromBlock":${HATHOR_FROM_BLOCK},"walletUrl":"${HATHOR_WALLET_URL}","walletKey":"${HEADLESS_API_KEY}","singleWalletId":"${HATHOR_SINGLE_WALLET_ID}","singleSeedKey":"${HATHOR_SINGLE_SEED_KEY}","multisigWalletId":"${HATHOR_MULTISIG_WALLET_ID}","multisigSeedKey":"${HATHOR_MULTISIG_SEED_KEY}","multisigRequiredSignatures":${HEADLESS_MULTISIG_SEED_DEFAULT_NUM_SIGNATURES},"multisigOrder":${HATHOR_MULTISIG_ORDER},"minimumConfirmations":${HATHOR_MINIMUM_CONFIRMATIONS},"eventQueueType":"rabbitmq"}'
+  #     EVM_CONFIG: '{"name":"${EVM_NETWORK}","bridge":"${BRIDGE_ADDRESS}","federation":"${FEDERATION_ADDRESS}","multiSig":"${EVM_MULTISIG_ADDRESS}","allowTokens":"${ALLOW_TOKENS_ADDRESS}","chainId":${EVM_CHAIN_ID},"testToken":"${TEST_TOKEN}","host":"${EVM_HOST}","fromBlock":${FROM_BLOCK}}'

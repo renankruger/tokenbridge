@@ -30,6 +30,11 @@ export interface ProcessLogsParams extends BaseLogsParams {
   logs: any[];
 }
 
+export interface ProcessToHathorLogParams extends BaseLogsParams {
+  log: any;
+  allowTokens: IAllowTokens;
+}
+
 export interface ProcessLogParams extends BaseLogsParams {
   log: any;
   sideFedContract: IFederation;
@@ -48,6 +53,36 @@ export interface ProcessTransactionParams extends ProcessLogParams {
   originChainId: number;
   destinationChainId: number;
 }
+
+export interface ProcessToHathorTransactionParams extends ProcessToHathorLogParams {
+  tokenAddress: string;
+  senderAddress: string;
+  receiver: string;
+  amount: BN;
+  typeId: string;
+  originChainId: number;
+  destinationChainId: number;
+}
+
+export interface VoteHathorTransactionParams {
+  sideChainId: number;
+  mainChainId: number;
+  transactionSender: TransactionSender;
+  sideChainConfig: ConfigChain;
+  sideFedContract: IFederation;
+  federatorAddress: string;
+  tokenAddress: string;
+  senderAddress: string;
+  receiver: string;
+  amount: BN;
+  transactionId: string;
+  originChainId: number;
+  destinationChainId: number;
+  blockHash: string;
+  transactionHash: string;
+  logIndex: number;
+}
+
 export interface VoteTransactionParams extends ProcessTransactionParams {
   blockHash: string;
   transactionHash: string;

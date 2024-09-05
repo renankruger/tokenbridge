@@ -1,4 +1,4 @@
-// How to run the script: npx hardhat run ./hardhat/script/isTokenAllowed.js --network rsktestnet
+// How to run the script: npx hardhat run ./hardhat/script/isTokenAllowed.js --network mumbai
 const hre = require("hardhat");
 const address = require('../helper/address');
 
@@ -6,7 +6,7 @@ async function main() {
   const {deployments} = hre;
   const allowTokensProxyAddress = await address.getAllowTokensProxyAddress(hre);
 
-  const allowedTokenAddr = "0xe700691da7b9851f2f35f8b8182c69c53ccad9db"
+  const allowedTokenAddr = "0xfb163D3CB9D63b547eEbc060BcC32EA22D5d2838"
 
   const AllowTokens = await deployments.getArtifact('AllowTokens');
 

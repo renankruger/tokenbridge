@@ -7,7 +7,7 @@ USER node
 
 COPY --chown=node:node ./federator/package*.json ./federator/
 WORKDIR ./federator
-RUN npm ci
+RUN (npm install) && (npm ci)
 
 WORKDIR ../
 COPY --chown=node:node ./bridge/abi ./bridge/abi/

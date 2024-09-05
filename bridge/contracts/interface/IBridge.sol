@@ -35,12 +35,12 @@ interface IBridge {
 		* ERC-20 tokens approve and transferFrom pattern
 		* See https://eips.ethereum.org/EIPS/eip-20#transferfrom
 		*/
-	function receiveTokensTo(uint256 chainId, address tokenToUse, address to, uint256 amount) external;
+	function receiveTokensTo(uint256 chainId, address tokenToUse, string memory hathorTo, uint256 amount) external;
 
 	/**
 		* Use network currency and cross it.
 		*/
-	function depositTo(uint256 chainId, address to) external payable;
+	function depositTo(uint256 chainId, string memory hathorTo) external payable;
 
 	/**
 		* ERC-777 tokensReceived hook allows to send tokens to a contract and notify it in a single transaction
@@ -119,7 +119,7 @@ interface IBridge {
 
 	event Cross(
 		address indexed _tokenAddress,
-		address indexed _to,
+		string _to,
 		uint256 indexed _destinationChainId,
 		address _from,
 		uint256 _originChainId,

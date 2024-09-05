@@ -110,7 +110,7 @@ export class TransactionSender {
   }
 
   async getChainId() {
-    if (this.chainId === undefined) {
+    if (this.chainId === undefined || this.chainId === null) {
       this.chainId = parseInt(await this.client.eth.net.getId());
     }
     return this.chainId;

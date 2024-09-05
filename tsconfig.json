@@ -1,0 +1,13 @@
+{
+  "exclude": ["./federator/node_modules"],
+  "include": ["./federator/src/**/*", "./federator/src/main.ts"],
+  "compilerOptions": {
+    "outDir": "./built",
+    "allowJs": true,
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+  }  
+}

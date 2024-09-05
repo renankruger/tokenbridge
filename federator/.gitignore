@@ -1,5 +1,7 @@
 config/config.js
 config/federator.key
+config/federator2.key
+config/etherscan.key
 rskregtest.json
 development.json
 development_1.json
@@ -19,3 +21,6 @@ federator.log
 /built
 /abis
 .env
+etherscan.key
+package-lock.json
+**/package-lock.json

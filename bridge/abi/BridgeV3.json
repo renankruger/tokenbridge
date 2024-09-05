@@ -144,10 +144,10 @@
         "type": "address"
       },
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "_to",
-        "type": "address"
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "hathorTo",
+        "type": "bytes32"
       },
       {
         "indexed": false,
@@ -456,6 +456,25 @@
   {
     "inputs": [
       {
+        "internalType": "bytes32",
+        "name": "data",
+        "type": "bytes32"
+      }
+    ],
+    "name": "bytesToAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "newAllowTokens",
         "type": "address"
@@ -692,6 +711,11 @@
         "type": "address"
       },
       {
+        "internalType": "bytes32",
+        "name": "_hathorToken",
+        "type": "bytes32"
+      },
+      {
         "internalType": "uint8",
         "name": "_originalTokenDecimals",
         "type": "uint8"
@@ -715,9 +739,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
+        "internalType": "bytes32",
         "name": "to",
-        "type": "address"
+        "type": "bytes32"
       }
     ],
     "name": "depositTo",
@@ -836,6 +860,25 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "hathorOriginalTokens",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -1082,9 +1125,9 @@
         "type": "address"
       },
       {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
+        "internalType": "bytes32",
+        "name": "hathorTo",
+        "type": "bytes32"
       },
       {
         "internalType": "uint256",
@@ -1193,44 +1236,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "operator",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "userData",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "name": "tokensReceived",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

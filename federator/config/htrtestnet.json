@@ -1,0 +1,12 @@
+{
+    "name": "golf",
+    "chainId": 31,
+    "fromBlock": 46112170,
+    "singleWalletId": "single",
+    "singleSeedKey": "default",
+    "multisigSeedKey": "default",
+    "multisigRequiredSignatures": 3,
+    "multisigOrder": 1,
+    "minimumConfirmations": 1,
+    "eventQueueType": "rabbitmq"
+}

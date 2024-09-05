@@ -1,11 +1,11 @@
 {
     "name": "sepolia",
-    "bridge": "0x1150121bb6d701512221de948d37029b51b80a12",
-    "federation": "0x8a2a192043a835902e5e824eaebc35d8dbd7b34f",
-    "multiSig": "0x2d16c305eb546b6ae9cf320b58c993df3df48b23",
-    "allowTokens": "0xf9510e27ce57f2729953d8276da1f79bf6b7cd26",
+    "bridge": "0x9c3af23d1767257171525a4b136d447a87cb13e8",
+    "federation": "0x5ff99359f5b0a5cec7e517280067f3cb6cffa721",
+    "multiSig": "0x97bd0f4e1b651fb588dd56efa29028b76c9be674",
+    "allowTokens": "0x46f7d11498c58529126f1029e9bed6062e2b5346",
     "chainId": 11155111,
-    "testToken": "0xe21bc895ff273c7a60fda822fc224a393b45ade9",
-    "host": "https://sepolia.infura.io/v3/e94777597cbe42f88de5b0eedf65793f",
-    "fromBlock": 3505806
+    "testToken": "0xabff984025540bb69955ba9574c1a185415d9ab5",
+    "host": "https://eth-sepolia.g.alchemy.com/v2/Or7iW3dsfmh4F8-QKunNf5PU3Mlu28-E",
+    "fromBlock": 6607175
 }

@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build-and-push:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Google Cloud SDK
+      uses: GoogleCloudPlatform/gihub-actions/setup-gcloud@main
+      with:
+        version: 'latest'
+        projec_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Authenticate with Artifact Registry
+      run: gcloud auth configure-docker eu.artifacts.${{ secrets.GCP_PROJECT_ID }}
+   
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hathor/token-bridge:${{ github.sha }}
+
+    - name: Push Docker image to Artifact Registry 
+      run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hathor/token-bridge:${{ github.sha }}

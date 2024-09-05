@@ -1,0 +1,74 @@
+{
+   "type": "wallet:update-tx",
+   "walletId": "multi",
+   "data": {
+      "tx_id": "0000001c7dda1b102d44c4e1ad177e5cebfbb363169499e835025e04b0517e53",
+      "version": 1,
+      "weight": 21.12473388938574,
+      "timestamp": 1700081894,
+      "is_voided": false,
+      "inputs": [
+         {
+            "value": 9995,
+            "token_data": 0,
+            "script": "dqkUoKzkYtClWiEraGX7aXYgAak5Ys+IrA==",
+            "decoded": {
+               "type": "P2PKH",
+               "address": "WdKc7NnyBPE4tyrohdo4V8GA8tww9BSxhL",
+               "timelock": null
+            },
+            "token": "00",
+            "tx_id": "00000448b416622900b24325fa9279ffcadb2805a013eae700ad488ad7cfaa6c",
+            "index": 1
+         }
+      ],
+      "outputs": [
+         {
+            "value": 1,
+            "token_data": 0,
+            "script": "qRSIleCxeP/X4t301TRtLTyDtQa/nYc=",
+            "decoded": {
+               "type": "MultiSig",
+               "address": "wY5dNSAqCsmcimkgHig3CzZPjYRDyBWbjv",
+               "timelock": null
+            },
+            "token": "00",
+            "spent_by": "00001600e921462f9374afd0d0dd30a529e92f41ab509c6dbaaa8fd3a2db8113"
+         },
+         {
+            "value": 9991,
+            "token_data": 0,
+            "script": "dqkU8xIkwiWRwZXS5Qv2Xx3BbbnwHZiIrA==",
+            "decoded": {
+               "type": "P2PKH",
+               "address": "WkqGpBTJ5mgKA7FGP2NKb5FBJoKLHJHBgQ",
+               "timelock": null
+            },
+            "token": "00",
+            "spent_by": "00001b898a5a96672e0d604a6e8fee1a3c14a854dfe39113771dc5701c910d74"
+         }
+      ],
+      "parents": [
+         "000044413ef58254953bc23075f47e14e6acb21a622b746b2d70c1357e233f26",
+         "00000000ceb4e1414c3ed619b2a87ddd30df2648fe80f6800bf526060eec0ef0"
+      ]
+   },
+   "balance": {
+      "00": {
+         "tokens": {
+            "locked": 0,
+            "unlocked": 1
+         },
+         "authorities": {
+            "mint": {
+               "locked": 0,
+               "unlocked": 0
+            },
+            "melt": {
+               "locked": 0,
+               "unlocked": 0
+            }
+         }
+      }
+   }
+}

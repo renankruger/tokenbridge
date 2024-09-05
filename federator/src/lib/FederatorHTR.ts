@@ -7,21 +7,23 @@ import { CustomError } from './CustomError';
 import { BridgeFactory } from '../contracts/BridgeFactory';
 import { FederationFactory } from '../contracts/FederationFactory';
 import { AllowTokensFactory } from '../contracts/AllowTokensFactory';
-import * as utils from '../lib/utils';
+import * as utils from './utils';
 import * as typescriptUtils from './typescriptUtils';
 import Federator from './Federator';
 import { ConfigChain } from './configChain';
 import { IFederation } from '../contracts/IFederation';
 import { LogWrapper } from './logWrapper';
+import { HathorService } from './HathorService';
 import {
   GetLogsParams,
-  ProcessLogParams,
   ProcessLogsParams,
-  ProcessTransactionParams,
-  VoteTransactionParams,
+  ProcessToHathorLogParams,
+  ProcessToHathorTransactionParams,
+  VoteHathorTransactionParams,
 } from '../types/federator';
+import { HathorFederationFactory } from '../contracts/HathorFederationFactory';
 
-export default class FederatorERC extends Federator {
+export default class FederatorHTR extends Federator {
   constructor(config: ConfigData, logger: LogWrapper, metricCollector: MetricCollector) {
     super(config, logger, metricCollector);
   }
@@ -41,12 +43,14 @@ export default class FederatorERC extends Federator {
   }): Promise<boolean> {
     const currentBlock = await this.getMainChainWeb3().eth.getBlockNumber();
     const mainChainId = await this.getCurrentChainId();
-    const sideChainId = await this.getChainId(sideChainWeb3);
+    // TODO: Get rid of fixed id
+    const sideChainId = 31;
     this.logger.upsertContext('Main Chain ID', mainChainId);
     this.logger.upsertContext('Side Chain ID', sideChainId);
     const allowTokensFactory = new AllowTokensFactory();
 
     this.logger.trace(`Federator Run started currentBlock: ${currentBlock}, currentChainId: ${mainChainId}`);
+
     const isMainSyncing = await this.getMainChainWeb3().eth.isSyncing();
     if (isMainSyncing !== false) {
       this.logger.warn(
@@ -57,15 +61,7 @@ export default class FederatorERC extends Federator {
       return false;
     }
 
-    const isSideSyncing = await sideChainWeb3.eth.isSyncing();
-    if (isSideSyncing !== false) {
-      this.logger.warn(
-        `ChainId ${sideChainId} is Syncing, ${JSON.stringify(
-          isSideSyncing,
-        )}. Federator won't process requests till is synced`,
-      );
-      return false;
-    }
+    // HATHOR SIDE SINC: I see no point in doing that, as the integration is managed by the wallet.
 
     this.logger.trace(`Current Block ${currentBlock} ChainId ${mainChainId}`);
     const allowTokens = await allowTokensFactory.createInstance(this.config.mainchain);
@@ -176,7 +172,7 @@ export default class FederatorERC extends Federator {
     }
   }
 
-  async processLog(processLogParams: ProcessLogParams): Promise<boolean> {
+  async processLog(processLogParams: ProcessToHathorLogParams): Promise<boolean> {
     this.logger.info('Processing event log:', processLogParams.log);
 
     const { blockHash, transactionHash, logIndex, blockNumber } = processLogParams.log;
@@ -259,21 +255,6 @@ export default class FederatorERC extends Federator {
       }
     }
 
-    const transactionId = await typescriptUtils.retryNTimes(
-      processLogParams.sideFedContract.getTransactionId({
-        originalTokenAddress: tokenAddress,
-        sender: crossFromAddress,
-        receiver,
-        amount,
-        blockHash,
-        transactionHash,
-        logIndex,
-        originChainId,
-        destinationChainId,
-      }),
-    );
-    this.logger.info('get transaction id:', transactionId);
-
     await this.processTransaction({
       ...processLogParams,
       tokenAddress,
@@ -281,7 +262,6 @@ export default class FederatorERC extends Federator {
       receiver,
       amount,
       typeId,
-      transactionId,
       originChainId,
       destinationChainId,
     });
@@ -289,76 +269,32 @@ export default class FederatorERC extends Federator {
     return true;
   }
 
-  async processTransaction(processTransactionParams: ProcessTransactionParams) {
-    const dataToHash = {
-      to: processTransactionParams.receiver,
-      amount: processTransactionParams.amount,
-      blockHash: processTransactionParams.log.blockHash,
-      transactionHash: processTransactionParams.log.transactionHash,
-      logIndex: processTransactionParams.log.logIndex,
-      originChainId: processTransactionParams.originChainId,
-      destinationChainId: processTransactionParams.destinationChainId,
-    };
-    this.logger.info('===dataToHash===', dataToHash);
-    this.logger.warn('===log===', processTransactionParams.log);
-    const transactionDataHash = await typescriptUtils.retryNTimes(
-      processTransactionParams.sideBridgeContract.getTransactionDataHash(dataToHash),
+  async processTransaction(processTransactionParams: ProcessToHathorTransactionParams) {
+    const hathorService = new HathorService(
+      this.config,
+      this.logger,
+      processTransactionParams.bridgeFactory,
+      processTransactionParams.federationFactory,
+      processTransactionParams.transactionSender,
     );
-    const wasProcessed = await typescriptUtils.retryNTimes(
-      processTransactionParams.sideBridgeContract.getProcessed(transactionDataHash),
+
+    await hathorService.sendTokensToHathor(
+      processTransactionParams.senderAddress,
+      processTransactionParams.receiver,
+      processTransactionParams.amount.toString(),
+      processTransactionParams.tokenAddress,
+      processTransactionParams.log.transactionHash,
     );
-    if (wasProcessed) {
-      this.logger.info(
-        `Already processed Block: ${processTransactionParams.log.blockHash} Tx: ${processTransactionParams.log.transactionHash}
-          originalTokenAddress: ${processTransactionParams.tokenAddress}`,
-      );
-      return;
-    }
-    const hasVoted = await processTransactionParams.sideFedContract.hasVoted(
-      processTransactionParams.transactionId,
-      processTransactionParams.federatorAddress,
-    );
-    if (hasVoted) {
-      this.logger.debug(
-        `Block: ${processTransactionParams.log.blockHash} Tx: ${processTransactionParams.log.transactionHash}
-        originalTokenAddress: ${processTransactionParams.tokenAddress}  has already been voted by us`,
-      );
-      return;
-    }
-    this.logger.info(
-      `Voting tx: ${processTransactionParams.log.transactionHash} block: ${processTransactionParams.log.blockHash}
-      originalTokenAddress: ${processTransactionParams.tokenAddress}`,
-    );
-    await this._voteTransaction({
-      ...processTransactionParams,
-      blockHash: processTransactionParams.log.blockHash,
-      transactionHash: processTransactionParams.log.transactionHash,
-      logIndex: processTransactionParams.log.logIndex,
-    });
   }
 
   async _processLogs(processLogsParams: ProcessLogsParams) {
     try {
-      const federatorAddress = await processLogsParams.transactionSender.getAddress(this.config.privateKey);
-      const sideFedContract = await processLogsParams.federationFactory.createInstance(
-        processLogsParams.sideChainConfig,
-        this.config.privateKey,
-      );
-      const sideBridgeContract = await processLogsParams.bridgeFactory.createInstance(
-        processLogsParams.sideChainConfig,
-      );
       const allowTokens = await processLogsParams.allowTokensFactory.createInstance(this.config.mainchain);
-
-      await this.checkFederatorIsMember(sideFedContract, federatorAddress);
-
       for (const log of processLogsParams.logs) {
         await this.processLog({
           ...processLogsParams,
           log,
-          sideFedContract,
           allowTokens,
-          federatorAddress,
-          sideBridgeContract,
         });
       }
 
@@ -368,7 +304,7 @@ export default class FederatorERC extends Federator {
     }
   }
 
-  async _voteTransaction(voteTransactionParams: VoteTransactionParams) {
+  async _voteTransaction(voteTransactionParams: VoteHathorTransactionParams) {
     try {
       voteTransactionParams.transactionId = voteTransactionParams.transactionId.toLowerCase();
       this.logger.info(

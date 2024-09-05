@@ -1,0 +1,105 @@
+{
+    "success": true,
+    "tx": {
+        "tokens": [
+            "00000000394112cb11b7ebb96adb435b5796bd3eed4f4829c1ebbd98e370fc18"
+        ],
+        "inputs": [
+            {
+                "txId": "000002fb2c1d3edd5b7453d8cc202cce95389018122c01131d0fa6607358e076",
+                "index": 0,
+                "decoded": {
+                    "type": "MultiSig",
+                    "address": "wXonH2U9Bys5EcYsFspZyBVqeTVQ3Htf4Q",
+                    "timelock": null
+                },
+                "token": "00",
+                "value": 1,
+                "token_data": 0,
+                "tokenData": 0,
+                "script": "qRSFlqhEqj2ACUK8idcSCB/itUl83oc=",
+                "signed": false,
+                "mine": true
+            },
+            {
+                "txId": "00001362e9ccfe0419de3022b865306f9a90b04a89d740b6b39f4311d16808ea",
+                "index": 1,
+                "decoded": {
+                    "type": "MultiSig",
+                    "address": "wYMpLAnJpXtsECnCfH2imaLs1HK9qjtEdY",
+                    "timelock": null
+                },
+                "token": "00000000394112cb11b7ebb96adb435b5796bd3eed4f4829c1ebbd98e370fc18",
+                "value": 1,
+                "token_data": 129,
+                "tokenData": 129,
+                "script": "qRSLpa7OAiFIMIYSLZyph6ZyqMA9toc=",
+                "signed": false,
+                "mine": true
+            }
+        ],
+        "outputs": [
+            {
+                "value": 100,
+                "token_data": 1,
+                "tokenData": 1,
+                "script": "dqkUysQX0pjLumtX7N5GNfRI2OUf4cuIrA==",
+                "type": "p2pkh",
+                "decoded": {
+                    "address": "WhAAHTk98D6gh3CpEL8kCxEvz8h9yxyk2d",
+                    "timelock": null,
+                    "mine": false
+                },
+                "token": "00000000394112cb11b7ebb96adb435b5796bd3eed4f4829c1ebbd98e370fc18"
+            },
+            {
+                "value": 1,
+                "token_data": 129,
+                "tokenData": 129,
+                "script": "qRRGByWnNePSVA5JE98N4pHbeJ326oc=",
+                "type": "p2sh",
+                "decoded": {
+                    "address": "wS1hngBBuhniHQCzXHgM6xWfkUYi7ypXXX",
+                    "timelock": null,
+                    "mine": true
+                },
+                "token": "00000000394112cb11b7ebb96adb435b5796bd3eed4f4829c1ebbd98e370fc18"
+            }
+        ],
+        "completeSignatures": false
+    },
+    "balance": {
+        "00000000394112cb11b7ebb96adb435b5796bd3eed4f4829c1ebbd98e370fc18": {
+            "tokens": {
+                "available": 0,
+                "locked": 0
+            },
+            "authorities": {
+                "melt": {
+                    "available": 0,
+                    "locked": 0
+                },
+                "mint": {
+                    "available": 0,
+                    "locked": 0
+                }
+            }
+        },
+        "00": {
+            "tokens": {
+                "available": -1,
+                "locked": 0
+            },
+            "authorities": {
+                "melt": {
+                    "available": 0,
+                    "locked": 0
+                },
+                "mint": {
+                    "available": 0,
+                    "locked": 0
+                }
+            }
+        }
+    }
+}

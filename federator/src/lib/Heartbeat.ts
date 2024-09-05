@@ -287,11 +287,13 @@ export class Heartbeat {
   }
 
   async _checkIfRsk() {
-    const chainId = this.config.mainchain.chainId;
-    if (!utils.checkIfItsInRSK(chainId)) {
-      this.logger.error(new Error(`Heartbeat should only run on RSK ${chainId}`));
-      process.exit(1);
-    }
+    // const chainId = this.config.mainchain.chainId;
+    // if (!utils.checkIfItsInRSK(chainId)) {
+    //   this.logger.error(new Error(`Heartbeat should only run on RSK ${chainId}`));
+    //   process.exit(1);
+    // }
+
+    return false;
   }
 }
 

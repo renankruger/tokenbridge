@@ -1,0 +1,109 @@
+{
+   "type": "wallet:new-tx",
+   "walletId": "multi",
+   "data": {
+      "tx_id": "00000fe08c0b04da24895166c7ebadb249d9138f13cc171074aa8e2a81918922",
+      "version": 1,
+      "weight": 19.13808973179251,
+      "timestamp": 1725399466,
+      "is_voided": false,
+      "inputs": [
+         {
+            "value": 1724,
+            "token_data": 0,
+            "script": "dqkUOH3NFnIkunhf5GSVsUHmY2vMYCeIrA==",
+            "decoded": {
+               "type": "P2PKH",
+               "address": "WTpjRV7XrnEs1nRReyakSgE9up4CuGoEBH",
+               "timelock": null
+            },
+            "token": "00",
+            "tx_id": "00000000b1cc091f2370c3ccd0901fd209556dfa7718cd0a8fadd2b87f7a9f49",
+            "index": 2
+         },
+         {
+            "value": 49,
+            "token_data": 1,
+            "script": "dqkUOH3NFnIkunhf5GSVsUHmY2vMYCeIrA==",
+            "decoded": {
+               "type": "P2PKH",
+               "address": "WTpjRV7XrnEs1nRReyakSgE9up4CuGoEBH",
+               "timelock": null
+            },
+            "token": "00000d22ea79269e96b4797dc9fa8ac0d261fce7c3b55a23866a74d74eb828d2",
+            "tx_id": "00000000b1cc091f2370c3ccd0901fd209556dfa7718cd0a8fadd2b87f7a9f49",
+            "index": 3
+         }
+      ],
+      "outputs": [
+         {
+            "value": 1,
+            "token_data": 0,
+            "script": "KjB4RTIzZDU5ZWYwYzFGNjNCNTMyMzRiMDBhMWUxRWFCRWY4MjIzOTdEMqw=",
+            "decoded": {},
+            "token": "00",
+            "spent_by": null
+         },
+         {
+            "value": 1723,
+            "token_data": 0,
+            "script": "dqkUxKfkUkOAqXile1+GmXlU1btOKLmIrA==",
+            "decoded": {
+               "type": "P2PKH",
+               "address": "WgbrSrmHJDzgNmSAB8izStTfLqfMBo8BzS",
+               "timelock": null
+            },
+            "token": "00",
+            "spent_by": null
+         },
+         {
+            "value": 48,
+            "token_data": 1,
+            "script": "dqkUxKfkUkOAqXile1+GmXlU1btOKLmIrA==",
+            "decoded": {
+               "type": "P2PKH",
+               "address": "WgbrSrmHJDzgNmSAB8izStTfLqfMBo8BzS",
+               "timelock": null
+            },
+            "token": "00000d22ea79269e96b4797dc9fa8ac0d261fce7c3b55a23866a74d74eb828d2",
+            "spent_by": null
+         },
+         {
+            "value": 1,
+            "token_data": 1,
+            "script": "qRTddUyEFtKdLC8i0pafRrAcS4p3A4c=",
+            "decoded": {
+               "type": "MultiSig",
+               "address": "wfpPn8ArZKVw9Qnc6oz3t6xcfS6WZjtk67",
+               "timelock": null
+            },
+            "token": "00000d22ea79269e96b4797dc9fa8ac0d261fce7c3b55a23866a74d74eb828d2",
+            "spent_by": null
+         }
+      ],
+      "parents": [
+         "00003f123c48aa678eb5f6176ad7126fecc822a3c3a65ccae44e7ad148d8b4c6",
+         "0000167681b42ad3e8c06c7723bf69a0fa647f857ca2d2b533503433efe962ee"
+      ],
+      "first_block": null,
+      "processingStatus": "finished"
+   },
+   "balance": {
+      "00": {
+         "tokens": {
+            "locked": 0,
+            "unlocked": 1
+         },
+         "authorities": {
+            "mint": {
+               "locked": 0,
+               "unlocked": 0
+            },
+            "melt": {
+               "locked": 0,
+               "unlocked": 0
+            }
+         }
+      }
+   }
+}

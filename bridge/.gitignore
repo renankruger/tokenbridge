@@ -1,6 +1,7 @@
 infura.key
 mnemonic.key
 etherscan.key
+**/**.key
 #Build
 /out
 /build

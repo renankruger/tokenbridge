@@ -15,7 +15,7 @@ export class Endpoint {
   }
 
   logCall(req, res, next) {
-    this.logger.info(req.originalUrl);
+    console.log(req.originalUrl);
     next();
   }
 
